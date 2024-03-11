@@ -30,7 +30,10 @@ def pregunta_02():
     Rta/
     4
     """
-    return
+    #leer cantidad de columnas en la abla "tbl0.tsv"
+    cols = len(tbl0.columns)
+    return cols
+
 
 
 def pregunta_03():
@@ -47,7 +50,9 @@ def pregunta_03():
     Name: _c1, dtype: int64
 
     """
-    return
+    tbl0_c1 = tbl0['_c1'].value_counts()
+    
+    return tbl0_c1
 
 
 def pregunta_04():
@@ -62,7 +67,10 @@ def pregunta_04():
     E    4.785714
     Name: _c2, dtype: float64
     """
+    tbl0_c1_c2 = tbl0.groupby('_c1').mean()['_c2']
+    
     return
+
 
 
 def pregunta_05():
@@ -79,6 +87,7 @@ def pregunta_05():
     E    9
     Name: _c2, dtype: int64
     """
+    tbl0_c1_c2 = tbl0.groupby('_c1').max()['_c2']
     return
 
 
@@ -91,6 +100,7 @@ def pregunta_06():
     ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
     """
+    tbl1_c4 = tbl1['_c4'].unique()
     return
 
 
@@ -107,6 +117,7 @@ def pregunta_07():
     E    67
     Name: _c2, dtype: int64
     """
+    tbl0_c1_c2 = tbl0.groupy('_c1').sum()['_c2']
     return
 
 
@@ -125,6 +136,10 @@ def pregunta_08():
     39   39   E    5  1998-01-26    44
 
     """
+    
+    tbl0['suma'] = tbl0['_c0'] + tbl0['_c2']
+    print(tbl0)
+    
     return
 
 
@@ -143,6 +158,8 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
+    
+    tbl0['year'] = pd.to_datetime(tbl0['_c3']).dt.year
     return
 
 
@@ -160,6 +177,8 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
+    
+    tbl0_c1_c2 = tbl0.groupby('_c1').apply(lambda x: ':'.join(x['_c2'].astype(str)))
     return
 
 
@@ -179,6 +198,7 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
+    tbl1_c0_c4 = tbl1.groupby('_c0').apply(lambda x: ','.join(x['_c4']))
     return
 
 
@@ -197,6 +217,7 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
+    tbl2_c0_c5 = tbl2.groupby('_c0').apply(lambda x: ','.join(x['_c5a'] + ':' + x['_c5b'].astype(str)))
     return
 
 
@@ -214,6 +235,7 @@ def pregunta_13():
     E    275
     Name: _c5b, dtype: int64
     """
+    tbl0_tbl2 = pd.merge(tbl0, tbl2, on='_c0')
     return
 
 
